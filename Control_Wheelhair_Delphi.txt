@@ -1,0 +1,469 @@
+{
+  This code was written by Rajaa Hayajneh
+  Date: 2016
+  Description: To control a power wheelchair using a mobile app and a camera.
+}
+
+unit Unit1;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.Objects, FMX.StdCtrls,
+  FMX.Ani, FMX.WebBrowser, FMX.Gestures, FMX.Effects, IdBaseComponent,
+  IdComponent, IdUDPBase, IdUDPClient, FMX.Edit, IdTCPConnection, IdTCPClient,
+  IdHTTP;
+
+type
+  TForm1 = class(TForm)
+    r1: TRoundRect;
+    ColorAnimation1: TColorAnimation;
+    WebBrowser1: TWebBrowser;
+    TrackBar1: TTrackBar;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    se: TWebBrowser;
+    ShadowEffect1: TShadowEffect;
+    Rectangle1: TRectangle;
+    L1: TShadowEffect;
+    L2: TShadowEffect;
+    L3: TShadowEffect;
+    L4: TShadowEffect;
+    s: TIdUDPClient;
+    Timer1: TTimer;
+    Edit1: TEdit;
+    Timer2: TTimer;
+    Timer3: TTimer;
+    Timer4: TTimer;
+    Timer5: TTimer;
+    Timer6: TTimer;
+    Timer7: TTimer;
+    Edit2: TEdit;
+    Timer8: TTimer;
+    Timer9: TTimer;
+    Edit3: TEdit;
+    w: TWebBrowser;
+    Timer10: TTimer;
+    Timer11: TTimer;
+    procedure FormTouch(Sender: TObject; const Touches: TTouches;
+      const Action: TTouchAction);
+    procedure Image2Click(Sender: TObject);
+    procedure Image2MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image2MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image3MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image4MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image4MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure Image3MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure WebBrowser1DidFailLoadWithError(ASender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure Timer3Timer(Sender: TObject);
+    procedure Timer4Timer(Sender: TObject);
+    procedure Timer5Timer(Sender: TObject);
+    procedure Timer6Timer(Sender: TObject);
+    procedure Timer7Timer(Sender: TObject);
+    procedure Timer8Timer(Sender: TObject);
+    procedure Timer9Timer(Sender: TObject);
+    procedure Timer10Timer(Sender: TObject);
+    procedure wDidFinishLoad(ASender: TObject);
+    procedure wDidFailLoadWithError(ASender: TObject);
+    procedure Timer11Timer(Sender: TObject);
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+ x : integer;
+implementation
+
+{$R *.fmx}
+
+procedure TForm1.FormTouch(Sender: TObject; const Touches: TTouches;
+  const Action: TTouchAction);
+var
+  I: Integer;
+begin
+// Label1.Text := Format('Touch Points: %d', [Length(Touches)]);//
+ //   Memo1.Lines.Clear;
+ // C1.Position.X :=  (Format('(%n)', [I, Touches[I].Location.X]));
+ // C1.Position.y :=  Touches[I].Location.y;
+// C1.Position.X :=strtoint (Format('(%n)', [I, Touches[I].Location.X]));
+//  C1.Position.y :=strtoint (Format('(%n)', [I, Touches[I].Location.y]));
+
+
+end;
+
+procedure TForm1.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l1.Enabled:=TRUE;
+  timer2.Enabled:=true;
+end;
+
+procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l1.Enabled:=FALSE;
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer5.Enabled:=false;
+timer6.Enabled:=false;
+timer7.Enabled:=false;
+timer8.Enabled:=false;
+s.Active:=true;
+s.Send('0');
+end;
+
+procedure TForm1.Image2Click(Sender: TObject);
+begin
+
+//timer1.Enabled:=true;
+end;
+
+procedure TForm1.Image2MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l2.Enabled:=TRUE;
+timer1.Enabled:=true;
+end;
+
+procedure TForm1.Image2MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l2.Enabled:=FALSE;
+ timer9.Enabled:=true;
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer5.Enabled:=false;
+timer6.Enabled:=false;
+timer7.Enabled:=false;
+ timer8.Enabled:=false;
+   s.Send('0');
+s.Active:=true;
+
+end;
+
+procedure TForm1.Image3MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l3.Enabled:=TRUE;
+timer3.Enabled:=true;
+end;
+
+procedure TForm1.Image3MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l3.Enabled:=FALSE;
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer5.Enabled:=false;
+timer6.Enabled:=false;
+timer7.Enabled:=false;
+timer8.Enabled:=false;
+s.Active:=true;
+s.Send('0');
+end;
+
+procedure TForm1.Image4MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+Timer4.Enabled:=TRUE;
+l4.Enabled:=TRUE;
+
+end;
+
+procedure TForm1.Image4MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+l4.Enabled:=FALSE;
+
+timer1.Enabled:=false;
+timer2.Enabled:=false;
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+timer5.Enabled:=false;
+timer6.Enabled:=false;
+timer8.Enabled:=false;
+timer7.Enabled:=false;
+s.Active:=true;
+s.Send('0');
+end;
+
+procedure TForm1.Timer10Timer(Sender: TObject);
+begin
+
+w.Navigate('http://192.168.0.222');
+
+end;
+
+procedure TForm1.Timer11Timer(Sender: TObject);
+begin
+x:=10;
+timer11.Enabled:=false;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+
+edit3.Text:='0';
+s.Active:=true;
+if edit1.Text='1' then
+begin
+ s.Send('1');
+end;
+
+
+if edit1.Text='2' then
+begin
+
+ edit2.text:='20';
+ timer5.Enabled:=true;
+end;
+
+if edit1.Text='3' then
+begin
+
+ edit2.text:='20';
+ timer5.Enabled:=true;
+end;
+
+
+if edit1.Text='4' then
+begin
+
+ edit2.text:='20';
+ timer5.Enabled:=true;
+end;
+
+
+if edit1.Text='5' then
+begin
+
+ edit2.text:='20';
+ timer5.Enabled:=true;
+end;
+
+
+end;
+
+procedure TForm1.Timer2Timer(Sender: TObject);
+begin
+s.Active:=true;
+s.Send('6');
+end;
+
+procedure TForm1.Timer3Timer(Sender: TObject);
+begin
+s.Active:=true;
+s.Send('7');
+end;
+
+procedure TForm1.Timer4Timer(Sender: TObject);
+begin
+s.Active:=true;
+s.Send('8');
+end;
+
+procedure TForm1.Timer5Timer(Sender: TObject);
+begin
+edit3.Text:='20';
+    timer1.Enabled:=false;
+
+ if strtoint(edit2.Text)>0 then
+    begin
+     s.Send('1');
+     edit2.Text:=inttostr( strtoint(edit2.Text)-1);
+    end else
+    begin
+
+if edit1.Text='2' then
+begin
+ s.Send('2');
+
+
+end;
+
+if edit1.Text='3' then
+begin
+
+  edit2.Text:='20';
+  timer6.Enabled:=true;
+
+end;
+
+
+if edit1.Text='4' then
+begin
+
+ edit2.Text:='20';
+  timer6.Enabled:=true;
+
+end;
+
+if edit1.Text='5' then
+begin
+
+ edit2.Text:='20';
+  timer6.Enabled:=true;
+
+end;
+
+
+
+    end;
+
+end;
+
+procedure TForm1.Timer6Timer(Sender: TObject);
+begin
+edit3.Text:='40';
+ timer5.Enabled:=false;
+
+ if strtoint(edit2.Text)>0 then
+    begin
+     s.Send('2');
+     edit2.Text:=inttostr( strtoint(edit2.Text)-1);
+    end else
+    begin
+
+if edit1.Text='3' then
+begin
+ s.Send('3');
+
+
+end;
+
+
+
+if edit1.Text='4' then
+begin
+
+ edit2.Text:='20';
+  timer7.Enabled:=true;
+
+end;
+
+if edit1.Text='5' then
+begin
+
+ edit2.Text:='20';
+  timer7.Enabled:=true;
+
+end;
+
+
+
+    end;
+
+end;
+
+procedure TForm1.Timer7Timer(Sender: TObject);
+begin
+edit3.Text:='60';
+ timer6.Enabled:=false;
+
+ if strtoint(edit2.Text)>0 then
+    begin
+     s.Send('3');
+     edit2.Text:=inttostr( strtoint(edit2.Text)-1);
+    end else
+    begin
+
+if edit1.Text='4' then
+begin
+ s.Send('4');
+
+
+end;
+
+
+
+if edit1.Text='5' then
+begin
+
+ edit2.Text:='20';
+  timer8.Enabled:=true;
+
+end;
+
+
+
+    end;
+
+end;
+
+procedure TForm1.Timer8Timer(Sender: TObject);
+begin
+edit3.Text:='80';
+timer7.Enabled:=false;
+
+ if strtoint(edit2.Text)>0 then
+    begin
+     s.Send('4');
+     edit2.Text:=inttostr( strtoint(edit2.Text)-1);
+    end else
+    begin
+
+ s.Send('5');
+
+
+    end;
+end;
+
+procedure TForm1.Timer9Timer(Sender: TObject);
+begin
+
+ s.Send('0');
+ timer9.Enabled:=false;
+end;
+
+procedure TForm1.TrackBar1Change(Sender: TObject);
+begin
+edit1.Text:=TrackBar1.Value.ToString;
+end;
+
+procedure TForm1.WebBrowser1DidFailLoadWithError(ASender: TObject);
+begin
+WebBrowser1.Visible:=FALSE;
+end;
+
+procedure TForm1.wDidFailLoadWithError(ASender: TObject);
+begin
+x :=10;
+end;
+
+
+end.
